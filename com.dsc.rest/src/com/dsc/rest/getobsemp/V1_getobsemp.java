@@ -12,8 +12,8 @@ import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.*;
-//import org.apache.http.HttpEntity;
-// import org.apache.http.util.EntityUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.util.EntityUtils;
 
 import java.sql.Timestamp;
 import java.util.Hashtable; 
@@ -51,6 +51,8 @@ import com.dsc.util.writeTofile;
 import com.dsc.util.createNewColform;
 import com.dsc.util.APIEvent;
 import com.dsc.util.DeleteColform;
+import com.dsc.util.ObserverRole;
+import com.dsc.util.OpenReadybyid;
 import com.dsc.util.VerifydelColformrequest;
 import com.dsc.util.createColform;
 import com.dsc.util.verifyColformrequest;
@@ -81,7 +83,7 @@ public class V1_getobsemp   {
    	@Consumes(MediaType.APPLICATION_JSON)
   	@Produces(MediaType.APPLICATION_JSON)
   	public Response V1_dscldap(JSONObject inputJsonObj) throws Exception {
-    	  System.out.println("Json Object sent by user is "+ inputJsonObj);
+    	//  System.out.println("Json Object sent by user is "+ inputJsonObj);
     	java.util.Date date= new java.util.Date();
     	java.util.Date sdate=new Timestamp(date.getTime());
    	 //	System.out.println(" DSCAutheication "+new Timestamp(date.getTime()));
@@ -103,7 +105,7 @@ public class V1_getobsemp   {
          R1.start();
       // API EVENT LOG Ends Here 
          
-         System.out.println("**** DSCAuthenticationSrv result json:"+ rb.getEntity().toString());  	 
+     //    System.out.println("**** DSCAuthenticationSrv result json:"+ rb.getEntity().toString());  	 
     	 
     	  return rb;
     	  
@@ -119,7 +121,7 @@ public class V1_getobsemp   {
     	java.util.Date date= new java.util.Date();
     	java.util.Date sdate=new Timestamp(date.getTime());
    	 //	System.out.println(" getObserver "+new Timestamp(date.getTime()));
-      System.out.println("**** OBS getObserver Sent by user:"+inputJsonObj);	
+   //   System.out.println("**** OBS getObserver Sent by user:"+inputJsonObj);	
     	 Response rb = null;
     	 getobserver vr = new getobserver();
     	 rb=vr.getobserver(inputJsonObj);
@@ -138,7 +140,7 @@ public class V1_getobsemp   {
        	APIEvent R1 = new APIEvent(result);
           R1.start();
        // API EVENT LOG Ends Here     	
-          System.out.println("**** obs_getObserver result json:"+ rb.getEntity().toString());                  
+      //    System.out.println("**** obs_getObserver result json:"+ rb.getEntity().toString());                  
     	  return rb;
     	  
   	}    
@@ -152,7 +154,7 @@ public class V1_getobsemp   {
     	java.util.Date date= new java.util.Date();
     	java.util.Date sdate=new Timestamp(date.getTime());
    	// 	System.out.println(" getOpenReady "+new Timestamp(date.getTime()));
-        System.out.println("**** OBS getOpenReady Sent by user:"+inputJsonObj);	
+ //       System.out.println("**** OBS getOpenReady Sent by user:"+inputJsonObj);	
     	 Response rb = null;
     	 getopenready vr = new getopenready();
     	 rb=vr.getopenready(inputJsonObj);
@@ -172,7 +174,7 @@ public class V1_getobsemp   {
         	APIEvent R1 = new APIEvent(result);
            R1.start();
         // API EVENT LOG Ends Here 
-           System.out.println("**** obs_getOpenReady result json:"+ rb.getEntity().toString());            
+      //     System.out.println("**** obs_getOpenReady result json:"+ rb.getEntity().toString());            
     	  return rb;
     	  
   	} 
@@ -189,7 +191,7 @@ public class V1_getobsemp   {
     	 getlc vr = new getlc();
     	 rb=vr.getlc();
     //	 System.out.println(" Return Get LC @"+new Timestamp(date.getTime()));
-         System.out.println("**** getlc result json:"+ rb.getEntity().toString());
+    //     System.out.println("**** getlc result json:"+ rb.getEntity().toString());
  
     	 
         	// API EVENT LOG Start Here 
@@ -206,7 +208,7 @@ public class V1_getobsemp   {
          	APIEvent R1 = new APIEvent(result);
             R1.start();
          // API EVENT LOG Ends Here 
-            System.out.println("**** obs_getLC result json:"+ rb.getEntity().toString());               
+         //   System.out.println("**** obs_getLC result json:"+ rb.getEntity().toString());               
     	  return rb;
     	  
   	}     
@@ -219,11 +221,11 @@ public class V1_getobsemp   {
     	java.util.Date date= new java.util.Date();
  	    java.util.Date sdate=new Timestamp(date.getTime());
    	 //	System.out.println(" getEmmployees "+new Timestamp(date.getTime()));
-       System.out.println("**** OBS getEmployees Sent by user:"+inputJsonObj);	
+    //   System.out.println("**** OBS getEmployees Sent by user:"+inputJsonObj);	
     	 Response rb = null;
     	 getemployees vr = new getemployees();
     	 rb=vr.getemployees(inputJsonObj);
-    	 System.out.println("**** getemployees result json:"+rb.getEntity().toString());	
+   // 	 System.out.println("**** getemployees result json:"+rb.getEntity().toString());	
     	 
     	 
      	// API EVENT LOG Start Here 
@@ -240,7 +242,7 @@ public class V1_getobsemp   {
       	APIEvent R1 = new APIEvent(result);
          R1.start();
       // API EVENT LOG Ends Here 
-         System.out.println("**** obs_getEmployees result json:"+ rb.getEntity().toString());           
+    //     System.out.println("**** obs_getEmployees result json:"+ rb.getEntity().toString());           
     	  return rb;
     	  
   	}  
@@ -253,7 +255,7 @@ public class V1_getobsemp   {
   	public Response V1_getfunctions() throws Exception {
     	java.util.Date date= new java.util.Date();
  	    java.util.Date sdate=new Timestamp(date.getTime());
-   	 	System.out.println(" Get Functions "+new Timestamp(date.getTime()));
+   //	 	System.out.println(" Get Functions "+new Timestamp(date.getTime()));
     	 Response rb = null;
     	 getfunctions vr = new getfunctions();
     	 rb=vr.getfunctions();
@@ -274,7 +276,7 @@ public class V1_getobsemp   {
       	APIEvent R1 = new APIEvent(result);
          R1.start();
       // API EVENT LOG Ends Here 
-         System.out.println("**** obs_getFunctions result json:"+ rb.getEntity().toString());          
+      //   System.out.println("**** obs_getFunctions result json:"+ rb.getEntity().toString());          
     	  return rb;
     	  
   	}    
@@ -292,7 +294,7 @@ public class V1_getobsemp   {
     	java.util.Date date= new java.util.Date();
  	    java.util.Date sdate=new Timestamp(date.getTime());
    //	 	System.out.println(" getformslist "+new Timestamp(date.getTime()));
-       System.out.println("**** OBS getformslist Sent by user:"+inputJsonObj);	
+   //    System.out.println("**** OBS getformslist Sent by user:"+inputJsonObj);	
     	 Response rb = null;
     	 getformslist vr = new getformslist();
     	 rb=vr.getformslist(inputJsonObj);
@@ -313,7 +315,7 @@ public class V1_getobsemp   {
       	APIEvent R1 = new APIEvent(result);
          R1.start();
       // API EVENT LOG Ends Here 
-         System.out.println("**** obs_getformslist result json:"+ rb.getEntity().toString());        
+ //        System.out.println("**** obs_getformslist result json:"+ rb.getEntity().toString());        
     	  return rb;
     	  
   	}   
@@ -328,7 +330,7 @@ public class V1_getobsemp   {
  	    java.util.Date sdate=new Timestamp(date.getTime());
    //	 	System.out.println(" NewCollform "+new Timestamp(date.getTime()));
     	 Response rb = null;
-          System.out.println("**** OBS NewCollfrom Sent by user:"+inputJsonObj);	
+    //      System.out.println("**** OBS NewCollfrom Sent by user:"+inputJsonObj);	
     	 verifyNewColrequest vr = new verifyNewColrequest();
     	 rb=vr.verifyNewColrequest(inputJsonObj);
     	 if ( rb != null) 
@@ -353,7 +355,7 @@ public class V1_getobsemp   {
       	APIEvent R1 = new APIEvent(result);
          R1.start();
       // API EVENT LOG Ends Here 
-         System.out.println("**** obs_NewCollform result json:"+ rb.getEntity().toString());             
+   //      System.out.println("**** obs_NewCollform result json:"+ rb.getEntity().toString());             
     	  return rb;
     	  
     	}
@@ -367,7 +369,7 @@ public class V1_getobsemp   {
  	    java.util.Date sdate=new Timestamp(date.getTime());
    	// 	System.out.println(" NewCollForm "+new Timestamp(date.getTime()));
     	 Response rb = null;
-         System.out.println("**** OBS getNewColform Sent by user:"+inputJsonObj);	
+    //     System.out.println("**** OBS getNewColform Sent by user:"+inputJsonObj);	
     	 verifyNewColrequest vr = new verifyNewColrequest();
     	 rb=vr.verifyNewColrequest(inputJsonObj);
     	 if ( rb != null) 
@@ -392,7 +394,7 @@ public class V1_getobsemp   {
       	APIEvent R1 = new APIEvent(result);
          R1.start();
       // API EVENT LOG Ends Here     
-         System.out.println("**** obsgetNewColform result json:"+ rb.getEntity().toString());       
+     //    System.out.println("**** obsgetNewColform result json:"+ rb.getEntity().toString());       
     	  return rb;
     	  
     	}     
@@ -405,7 +407,7 @@ public class V1_getobsemp   {
     	java.util.Date date= new java.util.Date();
  	    java.util.Date sdate=new Timestamp(date.getTime());
   // 	 	System.out.println(" Save "+new Timestamp(date.getTime()));
-        System.out.println("**** OBS SAVE Sent by user for save:"+jsonObject);		
+      System.out.println("**** OBS SAVE Sent by user for save:"+jsonObject);		
         Response rb  = null;
         writeTofile w2f = new writeTofile(); 
         rb=w2f.writeTofile(jsonObject); 
@@ -435,7 +437,7 @@ public class V1_getobsemp   {
       	APIEvent R1 = new APIEvent(result);
          R1.start();
       // API EVENT LOG Ends Here      	 
-         System.out.println("**** obs_Save result json:"+ rb.getEntity().toString());     	 
+    //     System.out.println("**** obs_Save result json:"+ rb.getEntity().toString());     	 
   	  return rb;
   	}    
 //  **************** Here Starts Process OBS Form Sent Back
@@ -446,8 +448,8 @@ public class V1_getobsemp   {
   	public Response V1_obssavex(JSONObject jsonObject) throws Exception {
     	java.util.Date date= new java.util.Date();
  	    java.util.Date sdate=new Timestamp(date.getTime());
-   	 	System.out.println(" Save "+new Timestamp(date.getTime()));
-      System.out.println("**** OBS SAVE Sent by user for save:"+jsonObject);	
+   //	 	System.out.println(" Save "+new Timestamp(date.getTime()));
+  //    System.out.println("**** OBS SAVE Sent by user for save:"+jsonObject);	
         Response rb  = null;
         writeTofile w2f = new writeTofile(); 
         rb=w2f.writeTofile(jsonObject); 
@@ -477,7 +479,7 @@ public class V1_getobsemp   {
          R1.start();
       // API EVENT LOG Ends Here      	 
      	      	 
-         System.out.println("**** obs_Save result json:"+ rb.getEntity().toString());     	      	 
+     //    System.out.println("**** obs_Save result json:"+ rb.getEntity().toString());     	      	 
   	  return rb;
   	}    
 
@@ -492,7 +494,7 @@ public class V1_getobsemp   {
 	    java.util.Date sdate=new Timestamp(date.getTime());
   // 	 	System.out.println(" GetCollection Form "+new Timestamp(date.getTime()));
 		 Response rb = null;
-	      System.out.println("**** OBS getgetCollform Sent by user:"+inputJsonObj);			 
+	//      System.out.println("**** OBS getgetCollform Sent by user:"+inputJsonObj);			 
 		 verifyColformrequest vr = new verifyColformrequest();
 		 rb=vr.verifyColformrequest(inputJsonObj);
 		 if ( rb != null) 
@@ -522,7 +524,7 @@ public class V1_getobsemp   {
       	APIEvent R1 = new APIEvent(result);
          R1.start();
       // API EVENT LOG Ends Here      	 
-         System.out.println("**** obsgetCollform result json:"+ rb.getEntity().toString());         	        	 
+   //      System.out.println("**** obsgetCollform result json:"+ rb.getEntity().toString());         	        	 
 		  return rb;
 		  
 	}
@@ -536,9 +538,9 @@ public class V1_getobsemp   {
   	public Response V1_obsgcfx(JSONObject inputJsonObj) throws Exception {
     	java.util.Date date= new java.util.Date();
     	java.util.Date sdate=new Timestamp(date.getTime());
-   	 	System.out.println(" Get Collection Form "+new Timestamp(sdate.getTime()));
+   	 //	System.out.println(" Get Collection Form "+new Timestamp(sdate.getTime()));
     	 Response rb = null;
-        System.out.println("**** OBS getCollform Sent by user:"+inputJsonObj);		 
+    //    System.out.println("**** OBS getCollform Sent by user:"+inputJsonObj);		 
     	 verifyColformrequest vr = new verifyColformrequest();
     	 rb=vr.verifyColformrequest(inputJsonObj);
     	 if ( rb != null) 
@@ -565,7 +567,7 @@ public class V1_getobsemp   {
              	APIEvent R1 = new APIEvent(result);
                 R1.start();
              // API EVENT LOG Ends Here 
-                System.out.println("**** obsgetCollform result json:"+ rb.getEntity().toString());             		 
+ //               System.out.println("**** obsgetCollform result json:"+ rb.getEntity().toString());             		 
     	  return rb;
     	  
   	}  
@@ -580,7 +582,7 @@ public class V1_getobsemp   {
 	    java.util.Date sdate=new Timestamp(date.getTime());
   // 	 	System.out.println(" delete Form "+new Timestamp(date.getTime()));
     	 Response rb = null;
-         System.out.println("**** OBS delCollform Sent by user:"+inputJsonObj);	
+ //        System.out.println("**** OBS delCollform Sent by user:"+inputJsonObj);	
     	 VerifydelColformrequest vr = new VerifydelColformrequest();
     	 rb=vr.verifydelColformrequest(inputJsonObj);
     	 if ( rb != null) 
@@ -604,7 +606,7 @@ public class V1_getobsemp   {
          	APIEvent R1 = new APIEvent(result);
             R1.start();
          // API EVENT LOG Ends Here 
-            System.out.println("**** obs_delCollform result json:"+ rb.getEntity().toString());        	
+   //         System.out.println("**** obs_delCollform result json:"+ rb.getEntity().toString());        	
     	  return rb;
     	  
   	}   
@@ -618,7 +620,7 @@ public class V1_getobsemp   {
 	    java.util.Date sdate=new Timestamp(date.getTime());
  //  	 	System.out.println(" Delete Form "+new Timestamp(date.getTime()));
     	 Response rb = null;
-     	  System.out.println("**** OBS delCollform Sent by user:"+inputJsonObj);	
+ //    	  System.out.println("**** OBS delCollform Sent by user:"+inputJsonObj);	
     	 VerifydelColformrequest vr = new VerifydelColformrequest();
     	 rb=vr.verifydelColformrequest(inputJsonObj);
     	 if ( rb != null) 
@@ -642,11 +644,72 @@ public class V1_getobsemp   {
          	APIEvent R1 = new APIEvent(result);
             R1.start();
          // API EVENT LOG Ends Here 
-            System.out.println("**** obs_delCollform result json:"+ rb.getEntity().toString());       	
+  //          System.out.println("**** obs_delCollform result json:"+ rb.getEntity().toString());       	
     	  return rb;
     	  
   	}
 
+     // openreadybyid
+    
+//  **************** Here Starts Get OBS Collection Form
+    @Path("/openreadybyid")
+    @POST
+   	@Consumes(MediaType.APPLICATION_JSON)
+  	@Produces(MediaType.APPLICATION_JSON)
+  	public Response V1_openreadybyid(JSONObject inputJsonObj) throws Exception {
+    	java.util.Date date= new java.util.Date();
+	    java.util.Date sdate=new Timestamp(date.getTime());
+    	 Response rb = null;	
+    	 OpenReadybyid or = new OpenReadybyid();
+    	 rb=or.OpenReadybyid(inputJsonObj);
+ 	 
+      	// API EVENT LOG Start Here 
+      	    java.util.Date xdate= new java.util.Date(); 
+     	    java.util.Date edate=new Timestamp(xdate.getTime());
+     	     JSONObject x=new JSONObject(rb.getEntity().toString());
+     		 JSONObject result =  (JSONObject) x; 
+     		  result.put("apircvddtm",sdate);
+     		 result.put("apisentdtm",edate);
+     		 result.put("jsoninput",inputJsonObj);
+     		 result.put("resname","openreadybyid");
+ //    		 System.out.println("**** NEW ADDED DATA getcollform result json:"+result.toString());	
+  //       	APIEvent R1 = new APIEvent(result);
+  //          R1.start();
+         // API EVENT LOG Ends Here 
+ //           System.out.println("**** openreadybyid result json:"+ rb.getEntity().toString());       	
+    	  return rb;
+    	  
+  	}
 
+    //  get observerrole
+//  **************** Here Starts Get OBS Collection Form
+    @Path("/observerrole/")
+    @POST
+   	@Consumes(MediaType.APPLICATION_JSON)
+  	@Produces(MediaType.APPLICATION_JSON)
+  	public Response V1_observerrole(JSONObject inputJsonObj) throws Exception {
+    	java.util.Date date= new java.util.Date();
+	    java.util.Date sdate=new Timestamp(date.getTime());
+    	 Response rb = null;	
+    	 ObserverRole or = new ObserverRole();
+    	 rb=or.ObserverRole(inputJsonObj);
+ 	 
+      	// API EVENT LOG Start Here 
+      	    java.util.Date xdate= new java.util.Date(); 
+     	    java.util.Date edate=new Timestamp(xdate.getTime());
+     	     JSONObject x=new JSONObject(rb.getEntity().toString());
+     		 JSONObject result =  (JSONObject) x; 
+     		  result.put("apircvddtm",sdate);
+     		 result.put("apisentdtm",edate);
+     		 result.put("jsoninput",inputJsonObj);
+     		 result.put("resname","openreadybyid");
+ //    		 System.out.println("**** NEW ADDED DATA getcollform result json:"+result.toString());	
+  //       	APIEvent R1 = new APIEvent(result);
+  //          R1.start();
+         // API EVENT LOG Ends Here 
+ //           System.out.println("**** openreadybyid result json:"+ rb.getEntity().toString());       	
+    	  return rb;
+    	  
+  	}
     
 } // end of main class

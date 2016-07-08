@@ -44,6 +44,34 @@ public class viewcollform {
 
 			 int rsCounta=0;
 
+			 
+			 
+              String nsql="select de.dsc_emp_first_name +' '+de.dsc_emp_last_name as Observed_FullName, de.dsc_emp_adp_id,"+
+            		     " ocfi.dsc_observer_emp_id as Observer, oi.dsc_observed_emp_id as Observed,dl.dsc_lc_name as  LocationName," +
+            		     " ocfi.obs_cfi_comp_date as compdate from "+
+            		     "[dbo].[OBS_COLLECT_FORM_INST] ocfi "+
+            		     " left join [dbo].[OBS_INST] oi on  oi.obs_inst_id = ocfi.obs_inst_id "+
+            		     " left join [dbo].[DSC_EMPLOYEE] de  on oi.dsc_observed_emp_id= de.dsc_emp_id "+
+            		     " left join [dbo].[DSC_LC] dl on dl.dsc_lc_id = oi.dsc_lc_id  "+
+            		     " where  ocfi.obs_cfi_id="+req_obs_cfi_id +
+            		     " union all( "+
+            		     " select de.dsc_emp_first_name +' ' +de.dsc_emp_last_name as Observer_FullName,de.dsc_emp_adp_id,"+
+            		     " ocfi.dsc_observer_emp_id as Observer, oi.dsc_observed_emp_id as Observed,'' as LocationName ," +
+            		     " '' as compdate from "+ 
+            		     " [dbo].[OBS_COLLECT_FORM_INST] ocfi" +
+            		     " left join [dbo].[OBS_INST] oi on oi.obs_inst_id = ocfi.obs_inst_id "+
+            		     " left join [DSC_EMPLOYEE] de on ocfi.dsc_observer_emp_id= de.dsc_emp_id "+
+            		     " where  ocfi.obs_cfi_id="+req_obs_cfi_id +")"		;
+              
+              nsql= "select de.dsc_emp_first_name +' '+de.dsc_emp_last_name as Observed_FullName, de.dsc_emp_adp_id," +
+                    " ocfi.dsc_observer_emp_id as Observer, oi.dsc_observed_emp_id as Observed,dl.dsc_lc_name as  LocationName, "+
+            	    " ocfi.obs_cfi_comp_date as compdate, de1.dsc_emp_first_name +' '+de1.dsc_emp_last_name as Observer_FullName,"+
+            		"de1.dsc_emp_adp_id   from [dbo].[OBS_COLLECT_FORM_INST] ocfi "+
+            		" left join [dbo].[OBS_INST] oi on  oi.obs_inst_id = ocfi.obs_inst_id "+  
+            		" left join [dbo].[DSC_EMPLOYEE] de  on oi.dsc_observed_emp_id= de.dsc_emp_id "+  
+            		" left join [dbo].[DSC_EMPLOYEE] de1  on ocfi.dsc_observer_emp_id= de1.dsc_emp_id "+  
+            		" left join [dbo].[DSC_LC] dl on dl.dsc_lc_id = oi.dsc_lc_id "+   
+            		" where  ocfi.obs_cfi_id="+req_obs_cfi_id;
 
     		  String SQL1 = "  select distinct   k.dsc_observed_emp_id as '1', "+
     				  	   " j.dsc_observer_emp_id as '2',  m.[dsc_emp_hire_dt] as '3' ,  "+
@@ -95,17 +123,44 @@ public class viewcollform {
 				  	"  where j.obs_cfi_id=" +req_obs_cfi_id +
 				  	" order by  l.obs_cfiq_quest_order ";	         
 	          
-		 //   System.out.println("Show collection First SQL:" + SQL);
+	   // System.out.println("Show collection First SQL:" + nsql);
 	
-		    
+		      String fullname1=null;
+		      String adpid1=null;
+		      String locname1=null;
+		      String fullname2=null;
+		      String adpid2=null;
+		      String compdte="";
+		      
 	          Statement stmt = conn.createStatement();
-	        
+         // First get adp if for observer/obbserved and location/completion dates for this form id
+	          
+		        ResultSet rs = stmt.executeQuery(nsql);
+		        rsCount=0;
+				while (rs.next()) 
+				{
+ 
+						  fullname1=rs.getString(1) ;
+						  adpid1=rs.getString(2);
+						  locname1=rs.getString(5) ;
+ 
+						  fullname2=rs.getString(7) ;
+						  adpid2=rs.getString(8);
+						  compdte=rs.getString(6) ;
+ 
+ 
+					
+				}
+				
+				rs.close();
+				
+				 
  
 			      // do starts here
-			        ResultSet rs = stmt.executeQuery(SQL);
+			          rs = stmt.executeQuery(SQL);
 	                String msg="ObsColFormInstID " +req_obs_cfi_id +" Not found.";
 	                sb.append("{\"result\":\"FAILED\",\"resultCode\":170,\"message\":\""+msg+"\"}");
-	              
+	              rsCount=0;
 	              //Show data from the result set.
 	               if (obvid.isEmpty()) obvid=" ";
 	               if (obdid.isEmpty()) obdid=" ";
@@ -127,6 +182,13 @@ public class viewcollform {
 					    	sb.append("\"DSC_LC_ID\":\""+rs.getString(4) +"\",");		
 					    	sb.append("\"customer\":\""+rs.getString(5) +"\",");	
 					    	 
+					    	sb.append("\"ObservedFullName\":\""+fullname1 +"\",");	
+					    	sb.append("\"ObservedADPID\":\""+adpid1 +"\",");	
+					    	sb.append("\"ObservedLocation\":\""+locname1 +"\",");						    	
+					    	
+					    	sb.append("\"ObserverFullName\":\""+fullname2 +"\",");	
+					    	sb.append("\"ObserverADPID\":\""+adpid2 +"\",");	
+					    	sb.append("\"ObservationCompDate\":\""+compdte +"\",");	
 					    	
 					    	
 					    	sb.append("\"OBSColFormID\":" +rs.getString(6)+",");					    	

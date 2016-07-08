@@ -150,7 +150,8 @@ public class insertnewcollinstance {
     	            		    instid+","+obscftid+","+ obvid+",'"+jsonObject.get("ColFormStartDateTime").toString().trim() +"',null ";
     	            //		  instid+","+obscftid+","+ obvid+",GETDATE(),null ";
     	            //   System.out.println( "**IN INSERTNEWCOLLINSTANCE: INSERT INTO OBS_INST:"+insert);  	              
-    	                if (formstatus.equals("SUBMIT"))
+    	          //      if (formstatus.equals("SUBMIT"))
+    	             	 if (formstatus.equals("COLLECTED"))	
     	                {
     	            	  insert=insert+",GETDATE())";
     	                }
@@ -158,7 +159,7 @@ public class insertnewcollinstance {
     	                {
     	            	  insert=insert+",null)";
     	                 }
-    	            //    System.out.println( "**IN INSERTNEWCOLLINSTANCE:INSERT New COLL FORM Instance:"+insert);
+    	              //  System.out.println( "**IN INSERTNEWCOLLINSTANCE:INSERT New COLL FORM Instance:"+insert);
     	                ps = conn.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
     	                ps.executeUpdate();
     	                rs = ps.getGeneratedKeys();
